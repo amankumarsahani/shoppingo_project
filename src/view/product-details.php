@@ -45,181 +45,174 @@ $user_id = $_SESSION['user_id'];
 
                   // PRODUCT ID
                   $id = $row_data['id'];
-                  ?>
+                ?>
 
                   <!-- FORM STARTS -->
                   <form action="../controller/cart_handle.php" method="POST">
 
                     <!-- hidden input tag -->
+                    <input type="hidden" name="selected_image_id" id="selected_image_id" value="<?= $id ?>">
                     <input type="hidden" name="selected_image" id="selected_image" value="<?= $featured_image ?>">
                     <div class="col mt-5">
-                      <div class="img-thumb-container overflow-hidden position-relative" data-fancybox="gallery"
-                        data-src="../../assets/images/product-images/01.jpg">
+                      <div class="img-thumb-container overflow-hidden position-relative" data-fancybox="gallery" data-src="../../assets/images/product-images/01.jpg">
                         <a href="javascript:;">
-                          <img
-                            src='<?php echo "../../shopingo_admin2-rahul/assets/images/product_featured_images/$featured_image" ?>'
-                            class="img-fluid" id="img_frame" alt="">
+                          <img src='<?php echo "../../shopingo_admin2-rahul/assets/images/product_featured_images/$featured_image" ?>' class="img-fluid" id="img_frame" alt="">
                         </a>
                       </div>
                     </div>
-                </div><!--end row-->
+              </div><!--end row-->
+            </div>
+          </div>
+        </div>
+        <!-- PRODUCT AL IMAGES EN-->
+
+
+
+        <!-- SUB IMAGES -->
+        <div class="col-12 col-xl-5">
+          <div class="product-info">
+            <div class="product-price d-flex align-items-center gap-3">
+              <div class="h4 fw-bold">
+                <?php echo $row_data['price']; ?>
+              </div>
+              <div class="h5 fw-light text-muted text-decoration-line-through">
+                1 crore
+              </div>
+              <!-- <div class="h4 fw-bold text-danger">(70% off)</div> -->
+            </div>
+            <p class="fw-bold mb-0 mt-1 text-success">inclusive of all taxes</p>
+          <?php } ?>
+          <div class="more-colors mt-4">
+            <h6 class="fw-bold mb-3">More Colors</h6>
+            <div class="d-flex align-items-center gap-3">
+              <?php foreach ($product_images as $img_data) {
+                $images = $img_data['product_image'];
+              ?>
+                <div class="">
+                  <a href="javascript:;">
+                    <img src='<?php echo "../../shopingo_admin2-rahul/assets/images/product_image/$images" ?>' width="65" class="sub_frame" alt="">
+                  </a>
+                  <input type="hidden" name="selected_image_name" id="selected_image_name" value="<?= $images; ?>">
+
+                </div>
+              <?php } ?>
+            </div>
+          </div>
+          <!-- SUB IMAGES ENDS-->
+
+          <!-- PRODUCT SIZE -->
+          <div class="size-chart mt-4">
+            <!-- <h6 class="fw-bold mb-3">Select Size</h6> -->
+            <div class="d-flex align-items-center gap-2 flex-wrap">
+              <?php
+              foreach ($product_details as $row_data) {
+              ?>
+                <!-- <div class="">
+                    <button type="button">
+                      <?php //echo $sizes 
+                      ?>
+                    </button>
+                  </div> -->
+                <!-- PRODUCT SIZE ENDS-->
+            </div>
+          </div>
+
+
+          <!-- Buttons -->
+          <?php
+                if (!isset($_SESSION['user_login'])) { ?>
+            <div class="cart-buttons mt-3">
+              <div class="buttons d-flex flex-column flex-lg-row gap-3 mt-4">
+                <button type="submit" name="cart_btn" class="btn btn-lg btn-dark btn-ecomm px-5 py-3 col-lg-6"><i class="bi bi-basket2 me-2"></i>Add to Bag</button>
+                <a href="./login.php" class="btn btn-lg btn-outline-dark btn-ecomm px-5 py-3"><i class="bi bi-suit-heart me-2"></i>Wishlist</a>
+              </div>
+            </div>
+          <?php } else { ?>
+
+            <div class="cart-buttons mt-3">
+              <div class="buttons d-flex flex-column flex-lg-row gap-3 mt-4">
+                <input type="hidden" name="product_id" value="<?php echo $id; ?>">
+                <input type="hidden" name="user_id" value="<?php echo $user_id; ?>">
+                <input type="hidden" name="product_price" value="<?php echo $row_data['price']; ?>">
+                <button type="submit" name="cart_btn" class="btn btn-lg btn-dark btn-ecomm px-5 py-3 col-lg-6"><i class="bi bi-basket2 me-2"></i>Add to Bag</button>
+
+                <button type="submit" name="wishlist_btn" class="btn btn-lg btn-outline-dark btn-ecomm px-5 py-3"><i class="bi bi-suit-heart me-2"></i>Wishlist</button>
+              </div>
+            </div>
+            </form>
+
+
+          <?php }
+          ?>
+
+
+          <!-- Buttons -->
+          <form action="" method="POST">
+
+          </form>
+
+          <hr class="my-3">
+          <div class="product-info">
+            <h6 class="fw-bold mb-3">Product Details</h6>
+            <p class="mb-1">
+              <?php echo $row_data['description'] ?>
+            </p>
+          </div>
+        <?php } ?>
+        <hr class="my-3">
+        <div class="customer-ratings">
+          <h6 class="fw-bold mb-3">Customer Ratings</h6>
+          <div class="d-flex align-items-center gap-4 gap-lg-5 flex-wrap flex-lg-nowrap">
+            <div class="">
+              <h1 class="mb-2 fw-bold">4.8<span class="fs-5 ms-2 text-warning"><i class="bi bi-star-fill"></i></span>
+              </h1>
+              <p class="mb-0">3.8k Verified Buyers</p>
+            </div>
+            <div class="vr d-none d-lg-block"></div>
+            <div class="w-100">
+              <div class="rating-wrrap hstack gap-2 align-items-center">
+                <p class="mb-0">5</p>
+                <div class=""><i class="bi bi-star"></i></div>
+                <div class="progress flex-grow-1 mb-0 rounded-0" style="height: 4px;">
+                  <div class="progress-bar bg-success" role="progressbar" style="width: 75%"></div>
+                </div>
+                <p class="mb-0">1528</p>
+              </div>
+              <div class="rating-wrrap hstack gap-2 align-items-center">
+                <p class="mb-0">4</p>
+                <div class=""><i class="bi bi-star"></i></div>
+                <div class="progress flex-grow-1 mb-0 rounded-0" style="height: 4px;">
+                  <div class="progress-bar bg-success" role="progressbar" style="width: 65%"></div>
+                </div>
+                <p class="mb-0">253</p>
+              </div>
+              <div class="rating-wrrap hstack gap-2 align-items-center">
+                <p class="mb-0">3</p>
+                <div class=""><i class="bi bi-star"></i></div>
+                <div class="progress flex-grow-1 mb-0 rounded-0" style="height: 4px;">
+                  <div class="progress-bar bg-info" role="progressbar" style="width: 45%"></div>
+                </div>
+                <p class="mb-0">258</p>
+              </div>
+              <div class="rating-wrrap hstack gap-2 align-items-center">
+                <p class="mb-0">2</p>
+                <div class=""><i class="bi bi-star"></i></div>
+                <div class="progress flex-grow-1 mb-0 rounded-0" style="height: 4px;">
+                  <div class="progress-bar bg-warning" role="progressbar" style="width: 35%"></div>
+                </div>
+                <p class="mb-0">78</p>
+              </div>
+              <div class="rating-wrrap hstack gap-2 align-items-center">
+                <p class="mb-0">1</p>
+                <div class=""><i class="bi bi-star"></i></div>
+                <div class="progress flex-grow-1 mb-0 rounded-0" style="height: 4px;">
+                  <div class="progress-bar bg-danger" role="progressbar" style="width: 25%"></div>
+                </div>
+                <p class="mb-0">27</p>
               </div>
             </div>
           </div>
-          <!-- PRODUCT AL IMAGES EN-->
-
-
-
-          <!-- SUB IMAGES -->
-          <div class="col-12 col-xl-5">
-            <div class="product-info">
-              <div class="product-price d-flex align-items-center gap-3">
-                <div class="h4 fw-bold">
-                  <?php echo $row_data['price']; ?>
-                </div>
-                <div class="h5 fw-light text-muted text-decoration-line-through">
-                  1 crore
-                </div>
-                <!-- <div class="h4 fw-bold text-danger">(70% off)</div> -->
-              </div>
-              <p class="fw-bold mb-0 mt-1 text-success">inclusive of all taxes</p>
-            <?php } ?>
-            <div class="more-colors mt-4">
-              <h6 class="fw-bold mb-3">More Colors</h6>
-              <div class="d-flex align-items-center gap-3">
-                <?php foreach ($product_images as $img_data) {
-                  $images = $img_data['product_image'];
-                  ?>
-                  <div class="">
-                    <a href="javascript:;">
-                      <img src='<?php echo "../../shopingo_admin2-rahul/assets/images/product_image/$images" ?>'
-                        width="65" class="sub_frame" alt="">
-                    </a>
-                    <input type="hidden" name="selected_image_name" id="selected_image_name" value="<?= $images; ?>">
-
-                  </div>
-                <?php } ?>
-              </div>
-            </div>
-            <!-- SUB IMAGES ENDS-->
-
-            <!-- PRODUCT SIZE -->
-            <div class="size-chart mt-4">
-              <!-- <h6 class="fw-bold mb-3">Select Size</h6> -->
-              <div class="d-flex align-items-center gap-2 flex-wrap">
-                <?php
-                foreach ($product_details as $row_data) {
-                  ?>
-                  <!-- <div class="">
-                    <button type="button">
-                      <?php //echo $sizes ?>
-                    </button>
-                  </div> -->
-                  <!-- PRODUCT SIZE ENDS-->
-                </div>
-              </div>
-
-
-              <!-- Buttons -->
-              <?php
-              if (!isset($_SESSION['user_login'])) { ?>
-                <div class="cart-buttons mt-3">
-                  <div class="buttons d-flex flex-column flex-lg-row gap-3 mt-4">
-                    <button type="submit" name="cart_btn" class="btn btn-lg btn-dark btn-ecomm px-5 py-3 col-lg-6"><i
-                        class="bi bi-basket2 me-2"></i>Add to Bag</button>
-                    <a href="./login.php" class="btn btn-lg btn-outline-dark btn-ecomm px-5 py-3"><i
-                        class="bi bi-suit-heart me-2"></i>Wishlist</a>
-                  </div>
-                </div>
-              <?php } else { ?>
-
-                <div class="cart-buttons mt-3">
-                  <div class="buttons d-flex flex-column flex-lg-row gap-3 mt-4">
-                    <input type="hidden" name="product_id" value="<?php echo $id; ?>">
-                    <input type="hidden" name="user_id" value="<?php echo $user_id; ?>">
-                    <input type="hidden" name="product_price" value="<?php echo $row_data['price']; ?>">
-                    <button type="submit" name="cart_btn" class="btn btn-lg btn-dark btn-ecomm px-5 py-3 col-lg-6"><i
-                        class="bi bi-basket2 me-2"></i>Add to Bag</button>
-
-                    <button type="submit" name="wishlist_btn" class="btn btn-lg btn-outline-dark btn-ecomm px-5 py-3"><i
-                        class="bi bi-suit-heart me-2"></i>Wishlist</button>
-                  </div>
-                </div>
-                </form>
-
-
-              <?php }
-              ?>
-
-
-              <!-- Buttons -->
-              <form action="" method="POST">
-
-              </form>
-
-              <hr class="my-3">
-              <div class="product-info">
-                <h6 class="fw-bold mb-3">Product Details</h6>
-                <p class="mb-1">
-                  <?php echo $row_data['description'] ?>
-                </p>
-              </div>
-            <?php } ?>
-            <hr class="my-3">
-            <div class="customer-ratings">
-              <h6 class="fw-bold mb-3">Customer Ratings</h6>
-              <div class="d-flex align-items-center gap-4 gap-lg-5 flex-wrap flex-lg-nowrap">
-                <div class="">
-                  <h1 class="mb-2 fw-bold">4.8<span class="fs-5 ms-2 text-warning"><i
-                        class="bi bi-star-fill"></i></span>
-                  </h1>
-                  <p class="mb-0">3.8k Verified Buyers</p>
-                </div>
-                <div class="vr d-none d-lg-block"></div>
-                <div class="w-100">
-                  <div class="rating-wrrap hstack gap-2 align-items-center">
-                    <p class="mb-0">5</p>
-                    <div class=""><i class="bi bi-star"></i></div>
-                    <div class="progress flex-grow-1 mb-0 rounded-0" style="height: 4px;">
-                      <div class="progress-bar bg-success" role="progressbar" style="width: 75%"></div>
-                    </div>
-                    <p class="mb-0">1528</p>
-                  </div>
-                  <div class="rating-wrrap hstack gap-2 align-items-center">
-                    <p class="mb-0">4</p>
-                    <div class=""><i class="bi bi-star"></i></div>
-                    <div class="progress flex-grow-1 mb-0 rounded-0" style="height: 4px;">
-                      <div class="progress-bar bg-success" role="progressbar" style="width: 65%"></div>
-                    </div>
-                    <p class="mb-0">253</p>
-                  </div>
-                  <div class="rating-wrrap hstack gap-2 align-items-center">
-                    <p class="mb-0">3</p>
-                    <div class=""><i class="bi bi-star"></i></div>
-                    <div class="progress flex-grow-1 mb-0 rounded-0" style="height: 4px;">
-                      <div class="progress-bar bg-info" role="progressbar" style="width: 45%"></div>
-                    </div>
-                    <p class="mb-0">258</p>
-                  </div>
-                  <div class="rating-wrrap hstack gap-2 align-items-center">
-                    <p class="mb-0">2</p>
-                    <div class=""><i class="bi bi-star"></i></div>
-                    <div class="progress flex-grow-1 mb-0 rounded-0" style="height: 4px;">
-                      <div class="progress-bar bg-warning" role="progressbar" style="width: 35%"></div>
-                    </div>
-                    <p class="mb-0">78</p>
-                  </div>
-                  <div class="rating-wrrap hstack gap-2 align-items-center">
-                    <p class="mb-0">1</p>
-                    <div class=""><i class="bi bi-star"></i></div>
-                    <div class="progress flex-grow-1 mb-0 rounded-0" style="height: 4px;">
-                      <div class="progress-bar bg-danger" role="progressbar" style="width: 25%"></div>
-                    </div>
-                    <p class="mb-0">27</p>
-                  </div>
-                </div>
-              </div>
-            </div>
+        </div>
 
           </div>
         </div>
@@ -417,8 +410,7 @@ $user_id = $_SESSION['user_id'];
 
 
 <!--start cart-->
-<div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="offcanvasRight"
-  aria-labelledby="offcanvasRightLabel">
+<div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
   <div class="offcanvas-header bg-section-2">
     <h5 class="mb-0 fw-bold" id="offcanvasRightLabel">8 items in the cart</h5>
     <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -652,7 +644,28 @@ $user_id = $_SESSION['user_id'];
       thumbnails[i].src = currentSrc;
 
       let imageName = currentSrc.split('/').pop();
-
+      // $.ajax({
+      //   url: "../controller/cart_handle.php",
+      //   method: "POST",
+      //   data: {
+      //     callHandler: "fetchImageId",
+      //     dataset: {
+      //       image: imageName,
+      //     },
+      //   },
+      //   dataType: "json",
+      //   success: function(data, status, xhr) {
+      //     if (data["status"] == 200) {
+      //       console.log(data);
+      //     } else {
+      //       $("#msg")
+      //         .html(`<div class="alert alert-danger alert-dismissible fade show" role="alert">
+      //     <strong>${data["message"]}</strong>
+      //     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      // </div>`);
+      //     }
+      //   },
+      // });
       selectedImageInput.value = frame.src.split("/").pop(); // Set the full image URL
       // console.log(frame.src.split("/").pop());
       selectedImageNameInput.value = imageName; // Set only the image name
