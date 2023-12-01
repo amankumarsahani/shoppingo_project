@@ -5,7 +5,7 @@ if (isset($_SESSION['user_login'])) {
 
   include '../../includes/header.php';
 
-  // NAVBAR 
+  // NAVBAR dsc
   include_once '../../includes/nav.php';
 
   //CONTROLLER FILE
