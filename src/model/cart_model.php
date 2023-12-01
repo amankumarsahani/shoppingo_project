@@ -7,19 +7,21 @@ include '../../config/connection.php';
 function insertQuery($table, $keys, $values, $uniqueColumn, $condition_1, $condition_2, $additionalColumns = [])
 {
     global $conn;
-    $check_query = "SELECT $uniqueColumn FROM $table WHERE $condition_1 AND $condition_2";
+    $check_query = "SELECT id FROM $table WHERE $condition_1 AND $condition_2 AND selected_image = '$uniqueColumn'";
+
     $check_result = mysqli_query($conn, $check_query);
     if (mysqli_num_rows($check_result) > 0) {
         return false;
-    }
-    foreach ($additionalColumns as $column => $columnValue) {
-        $keys .= ", $column";
-        $values .= ", '$columnValue'";
-    }
+    } else {
+        foreach ($additionalColumns as $column => $columnValue) {
+            $keys .= ", $column";
+            $values .= ", '$columnValue'";
+        }
 
-    $insert_query = "INSERT INTO $table ($keys) VALUES ($values)";
-    $execute = mysqli_query($conn, $insert_query);
-    return $execute;
+        $insert_query = "INSERT INTO $table ($keys) VALUES ($values)";
+        $execute = mysqli_query($conn, $insert_query);
+        return $execute;
+    }
 }
 
 
@@ -55,4 +57,3 @@ function removeCartItem($table, $condition)
 //     }
 //     return $data_container;
 // }
-?>
