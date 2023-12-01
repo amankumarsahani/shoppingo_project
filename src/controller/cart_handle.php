@@ -5,6 +5,7 @@ include '../model/cart_model.php';
 
 // TO ADD ITEM IN CART
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
     if (isset($_POST['cart_btn'])) {
         $user_id = $_POST['user_id'];
         $product_id = $_POST['product_id'];
@@ -14,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
         $table = "products_cart";
-        $uniqueColumn = "selected_image";
+        $uniqueColumn = $selected_image;
         $keys = "user_id, product_id, delete_status, product_price, selected_image";
         $values = "'$user_id', '$product_id', 0, '$product_price', '$selected_image'";
         $condition_1 = "user_id = $user_id";
@@ -107,9 +108,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     }
 }
-
-
-
 
 // ANOTHER WAY TO REMOVE ITEMS FROM CART 
 // if ($_SERVER['REQUEST_METHOD'] == 'POST') {
